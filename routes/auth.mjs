@@ -2,6 +2,7 @@
 import express from 'express';
 let router = express.Router()
 import { client } from './../mongodb.mjs'
+import jwt from 'jsonwebtoken';
 import { 
     stringToHash,
     varifyHash 
@@ -42,9 +43,21 @@ router.post('/login', async (req, res, next) => {
 
             if (isMatch) {
                 
-                
+                const token = jwt.sign({
+                    isAdmin: false,
+                    firstName: result.firstName,
+                    lastName: result.lastName,
+                    email: req.body.email,
+                }, process.env.SECRET, {
+                    expiresIn: '24h'
+                });
 
-                // TODO: create token for this user
+                res.cookie('token', token, {
+                    httpOnly: true,
+                    secure: true,
+                    // expires: new Date(dateAfter2MinInMili)
+                });
+                
                 res.send({
                     message: "login successful"
                 });
