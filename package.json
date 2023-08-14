@@ -1,6 +1,17 @@
 {
+  "name": "init",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.mjs",
+    "dev": "nodemon main.mjs"
+  },
   "dependencies": {
+    "amqplib": "^0.10.3",
+    "axios": "^1.4.0",
     "bcrypt-inzi": "^1.0.7",
+    "config": "^3.3.9",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -12,14 +23,7 @@
     "path": "^0.12.7",
     "tailwind": "^4.0.0"
   },
-  "name": "init",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.mjs",
-    "dev": "nodemon main.mjs"
-  },
+
   "author": "",
   "license": "ISC",
   "description": "",
