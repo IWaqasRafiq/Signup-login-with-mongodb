@@ -1,36 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signup Page</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<body>
+  <body>
     <div id="container">
-        <div class="box">
-            <div class="form-box">
-                <!-- <div class="ic-account"></div> -->
-                <form name="login-form">
-                    <input id="firstInput" class="signup-email-input" type="text" name="your-firstName" placeholder="First Name"
-                        required>
-                    <input id="firstInput" class="signup-email-input" type="text" name="your-secondName" placeholder="Last Name"
-                        required>
-                    <input id="firstInput" class="signup-email-input" type="email" name="your-email" placeholder="Email Address"
-                        required>
-                    <input id="firstInput" class="signup-password-input" type="password" name="your-password" placeholder="Password"
-                        required>
-                    <button id="signup-form-btn" return="false">Signup</button>
-                    <p class="text">Already have an account?  <a href="../index.html">Login</a></p>
-                </form>
-            </div>
-            <div class="circle-01"></div>
-            <div class="circle-02"></div>
+      <div class="box">
+        <div class="form-box">
+          <!-- <div class="ic-account"></div> -->
+          <form name="login-form" id="signupForm">
+            <input
+              id="firstInput"
+              class="firstname"
+              type="text"
+              name="your-firstName"
+              placeholder="First Name"
+              required
+            />
+            <input
+              id="firstInput"
+              class="lastname"
+              type="text"
+              name="your-secondName"
+              placeholder="Last Name"
+              required
+            />
+            <input
+              id="firstInput"
+              class="signup-email-input"
+              type="email"
+              name="your-email"
+              placeholder="Email Address"
+              required
+            />
+            <input
+              id="firstInput"
+              class="signup-password-input"
+              type="password"
+              name="your-password"
+              placeholder="Password"
+              required
+            />
+            <input
+              id="firstInput"
+              class="confirmPassword"
+              type="password"
+              name="your-password"
+              placeholder="Confirm Password"
+              required
+            />
+            <button id="signup-form-btn" return="false">Signup</button>
+            <p class="text">
+              Already have an account? <a href="index.html">Login</a>
+            </p>
+          </form>
         </div>
+      </div>
     </div>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
+    <script type="module">
+      function redirectToHomePage() {
+        window.location.assign("login.html"); // Replace 'home.html' with the actual URL of your home page
+      }
+      const form = document.querySelector("#signupForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const firstName = document.querySelector(".firstname").value;
+        const lastName = document.querySelector(".lastname").value;
+        const email = document.querySelector(".signup-email-input").value;
+        const password = document.querySelector(".signup-password-input").value;
+        const confirmPassword =
+          document.querySelector(".confirmPassword").value;
 
+        if (password === confirmPassword) {
+          axios
+            .post("/api/v1/signup", {
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              password: password,
+            })
+            .then(function (response) {
+              console.log(response.data);
+              alert("Signup Successfully");
+              redirectToHomePage();
+            })
+            .catch(function (error) {
+              console.log(error);
+              alert(error.response.data.message);
+            });
+        } else {
+          alert("Password must be same");
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -1,13 +1,12 @@
 
 import express from 'express';
-let router = express.Router()
-import { client } from './../mongodb.mjs'
+import { client } from '../mongodb.mjs'
 import jwt from 'jsonwebtoken';
 import { 
     stringToHash,
     varifyHash 
 } from "bcrypt-inzi"
-
+const router = express.Router()
 const userCollection = client.db("cruddb").collection("users");
 
 router.post('/login', async (req, res, next) => {
@@ -37,7 +36,6 @@ router.post('/login', async (req, res, next) => {
             });
             return;
         } else { // user found
-
 
             const isMatch = await varifyHash(req.body.password, result.password)
 

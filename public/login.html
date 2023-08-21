@@ -1,64 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log-in Page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
 </head>
-
 <body>
-    <div id="container">
-        <div class="box">
-            <div class="form-box">
-                <div class="ic-account"></div>
-                <form name="login-form" id="loginForm">
-                    <input id="firstInput emailInput" class="login-email-input" type="email" name="your-email" placeholder="Email Address"
-                        required>
-                    <input id="firstInput passwordInput" class="login-password-input" type="password" name="your-password" placeholder="Password"
-                        required>
-                    <button id="login-form-btn">Login</button>
-                    <p class="text">Don't have an account? <a href="./signup.html">Signup</a></p>
-                </form>
-            </div>
-            <div class="circle-01"></div>
-            <div class="circle-02"></div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
-    <script type="module">
-
-        document.querySelector('#loginForm')
-            .addEventListener('submit', async (event) => {
-                event.preventDefault();
-
-                const email = document.querySelector('#emailInput').value;
-                const password = document.querySelector('#passwordInput').value;
-
-
-                try {
-                    const resp = await axios.post("/api/v1/login", {
-                        email: email,
-                        password: password
-                    })
-
-                    console.log("response: ", resp.status)
-
-                    if (resp.status === 200) {
-                        window.location.href = "index.html";
-                    }
-
-                } catch (e) {
-                    console.log(e)
-                }
-
-            })
-
-    </script>
-
+    Welcome To Home
 </body>
-
 </html>
