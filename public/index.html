@@ -1,64 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log-in Page</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
     <div id="container">
-        <div class="box">
-            <div class="form-box">
-                <div class="ic-account"></div>
-                <form name="login-form" id="loginForm">
-                    <input id="firstInput" class="login-email-input" type="email" name="your-email" placeholder="Email Address"
-                        required>
-                    <input id="firstInput" class="login-password-input" type="password" name="your-password" placeholder="Password"
-                        required>
-                    <button id="login-form-btn">Login</button>
-                    <p class="text">Don't have an account? <a href="./signup.html">Signup</a></p>
-                </form>
-            </div>
-            <div class="circle-01"></div>
-            <div class="circle-02"></div>
+      <div class="box">
+        <div class="form-box">
+          <div class="ic-account"></div>
+          <form name="login-form" id="loginForm">
+            <input
+              id="firstInput"
+              class="login-email-input"
+              type="email"
+              name="your-email"
+              placeholder="Email Address"
+              required
+            />
+            <input
+              id="firstInput"
+              class="login-password-input"
+              type="password"
+              name="your-password"
+              placeholder="Password"
+              required
+            />
+            <button id="login-form-btn">Login</button>
+            <p class="text">
+              Don't have an account? <a href="./signup.html">Signup</a>
+            </p>
+          </form>
         </div>
+        <div class="circle-01"></div>
+        <div class="circle-02"></div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
     <script type="module">
+      function redirectToHomePage() {
+        window.location.assign("login.html"); // Replace 'home.html' with the actual URL of your home page
+      }
+      document
+        .querySelector("#loginForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
 
-        document.querySelector('#loginForm')
-            .addEventListener('submit', async (event) => {
-                event.preventDefault();
+          const email = document.querySelector(".login-email-input").value;
+          const password = document.querySelector(
+            ".login-password-input"
+          ).value;
 
-                const email = document.querySelector('.login-email-input').value;
-                const password = document.querySelector('.login-password-input').value;
+          try {
+            const resp = await axios.post("/api/v1/login", {
+              email: email,
+              password: password,
+            });
 
+            console.log("response: ", resp.status);
 
-                try {
-                    const resp = await axios.post("/api/v1/login", {
-                        email: email,
-                        password: password
-                    })
-
-                    console.log("response: ", resp.status)
-
-                    if (resp.status === 200) {
-                        window.location.assign = "login.html";
-                    }
-
-                } catch (e) {
-                    console.log(e)
-                }
-
-            })
-
+            if (resp.status === 200) {
+              alert("Login Successfully");
+              redirectToHomePage();
+            }
+          } catch (e) {
+            console.log(e);
+          }
+        });
     </script>
-
-</body>
-
+  </body>
 </html>
